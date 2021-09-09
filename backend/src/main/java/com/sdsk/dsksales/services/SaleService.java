@@ -1,6 +1,8 @@
 package com.sdsk.dsksales.services;
 
 import com.sdsk.dsksales.dto.SaleDto;
+import com.sdsk.dsksales.dto.SaleSuccessDto;
+import com.sdsk.dsksales.dto.SaleSumDto;
 import com.sdsk.dsksales.dto.SellerDto;
 import com.sdsk.dsksales.entities.Sale;
 import com.sdsk.dsksales.entities.Seller;
@@ -30,5 +32,17 @@ public class SaleService
         sellerRepository.findAll();
         Page<Sale> result = saleRepository.findAll(pageable);
         return result.map( x -> new SaleDto(x));
+    }
+
+    @Transactional(readOnly = true)
+    public List<SaleSumDto> amountGroupedBySeller()
+    {
+        return saleRepository.amountGroupedBySeller();
+    }
+
+    @Transactional(readOnly = true)
+    public List<SaleSuccessDto> successGroupedBySeller()
+    {
+        return saleRepository.successGroupedBySeller();
     }
 }
